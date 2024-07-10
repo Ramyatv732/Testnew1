@@ -27,13 +27,7 @@ public class Image {
 
     @BeforeSuite
     public void setUp() throws InterruptedException {
-    	//driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()));
-   //Intiating chrome driver
-        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\ramya\\Downloads\\chrome-win64\\chrome-win64.exe");
-
-        //ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--start-maximized");
-        //driver = new ChromeDriver(options);
+    	
     	 WebDriverManager.chromedriver().setup();
     	 ChromeOptions options = new ChromeOptions();
     	 WebDriver driver = new ChromeDriver(options);
