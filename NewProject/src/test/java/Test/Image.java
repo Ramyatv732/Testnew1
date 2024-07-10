@@ -23,7 +23,7 @@ public class Image {
     @BeforeClass
     public void setUp() {
    //Intiating chrome driver
-        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\ramya\\Downloads\\chrome-win64\\chrome-win64");
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
