@@ -9,9 +9,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import junit.framework.Assert;
 
 
 
@@ -20,21 +25,30 @@ public class Image {
 	private WebDriver driver;
     private JavascriptExecutor js;
 
-    @BeforeClass
-    public void setUp() {
+    @BeforeSuite
+    public void setUp() throws InterruptedException {
+    	//driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()));
    //Intiating chrome driver
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\ramya\\Downloads\\chrome-win64\\chrome-win64");
+        //System.setProperty("webdriver.chrome.driver", "C:\\Users\\ramya\\Downloads\\chrome-win64\\chrome-win64.exe");
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        driver = new ChromeDriver(options);
+        //ChromeOptions options = new ChromeOptions();
+        //options.addArguments("--start-maximized");
+        //driver = new ChromeDriver(options);
+    	 WebDriverManager.chromedriver().setup();
+    	 ChromeOptions options = new ChromeOptions();
+    	 WebDriver driver = new ChromeDriver(options);
+    	 Thread.sleep(2000);
+    	 driver.get("https://ubique.img.ly/develop/apps/cesdk_web/web/smoketests/slow-assets.html");
+    	
         js = (JavascriptExecutor) driver;
     }
 
-    @Test
+    @SuppressWarnings("deprecation")
+	@Test
     public void testAddImageAndVerify() {
+    	
        
-        driver.get("https://ubique.img.ly/develop/apps/cesdk_web/web/smoketests/slow-assets.html");
+        //driver.get("https://ubique.img.ly/develop/apps/cesdk_web/web/smoketests/slow-assets.html");
 
 //Locating the image icon on the web page
         WebElement assetLibrary = driver.findElement(By.name("librarydock-ly.img.image"));
@@ -45,12 +59,13 @@ WebElement imageElement = assetLibrary.findElement(By.xpath("//button/img/div"))
 
      
         Object result = js.executeScript("return cyGlobals.cesdk.engine.block.findByKind('imageElement')");
+        
 
-        Assert.assertTrue(result instanceof ArrayList, "Result is not an array");
-        Assert.assertEquals(((ArrayList<?>) result).size(), 1, "Image is not added to the scene");
+        Assert.assertTrue(result instanceof ArrayList);
+        Assert.assertEquals(((ArrayList<?>) result).size(), 1);
     }
 
-    @AfterClass
+    @AfterSuite
     public void tearDown() {
         if (driver != null) {
             driver.quit();
