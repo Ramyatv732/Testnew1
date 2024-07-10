@@ -36,7 +36,7 @@ public class Image {
        
         driver.get("https://ubique.img.ly/develop/apps/cesdk_web/web/smoketests/slow-assets.html");
 
-//Locating the image icon
+//Locating the image icon on the web page
         WebElement assetLibrary = driver.findElement(By.name("librarydock-ly.img.image"));
        
 WebElement imageElement = assetLibrary.findElement(By.xpath("//button/img/div"));
